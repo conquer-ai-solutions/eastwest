@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Document Intelligence - East West Bank</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #F5F5F7;
+            --surface: #FFFFFF;
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --accent: #0071E3;
+            --accent-hover: #0077ED;
+            --green: #34C759;
+            --amber: #FF9500;
+            --red: #FF3B30;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Display", sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: var(--font-family);
+            background: var(--bg);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Landing Page */
+        .landing-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, var(--bg) 0%, #FFFFFF 100%);
+            overflow: hidden;
+        }
+
+        .landing-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: var(--surface);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .landing-logo {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .landing-logo span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .landing-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .landing-hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .landing-hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .landing-hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .landing-cta {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 980px;
+            background: var(--accent);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 60px;
+        }
+
+        .landing-cta:hover {
+            background: var(--accent-hover);
+        }
+
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-bottom: 40px;
+        }
+
+        .metric {
+            padding: 20px;
+            text-align: center;
+            border-right: 1px solid #E5E5E7;
+        }
+
+        .metric:last-child {
+            border-right: none;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .landing-footer {
+            padding: 20px 40px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border-top: 1px solid #E5E5E7;
+        }
+
+        /* Main Dashboard */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid #E5E5E7;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #E5E5E7;
+        }
+
+        .sidebar-header-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #E5E5E7;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--green);
+            width: 50%;
+            transition: width 0.6s ease;
+        }
+
+        .sidebar-steps {
+            flex: 1;
+            padding: 12px;
+        }
+
+        .step-item {
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .step-item:hover {
+            background: #F5F5F7;
+        }
+
+        .step-item.active {
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+        }
+
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-item.active .step-icon {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .step-label {
+            flex: 1;
+        }
+
+        .step-tag {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .step-item.active .step-tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .pipeline-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px;
+            background: var(--surface);
+            border-bottom: 1px solid #E5E5E7;
+            align-items: center;
+        }
+
+        .pipeline-stage {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stage-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #E5E5E7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .stage-circle.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .stage-circle.completed {
+            background: var(--green);
+            color: white;
+        }
+
+        .stage-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .pipeline-connector {
+            width: 16px;
+            height: 2px;
+            background: #E5E5E7;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px;
+        }
+
+        /* Cards & Components */
+        .card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 16px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        /* Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .overview-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .overview-card-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .overview-card-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .overview-card-status {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            width: fit-content;
+            font-weight: 500;
+        }
+
+        .status-complete {
+            background: #D1F4D1;
+            color: #0B6622;
+        }
+
+        .status-in-progress {
+            background: #FFF2CC;
+            color: #7C4500;
+        }
+
+        .status-pending {
+            background: #E8E8ED;
+            color: var(--text-secondary);
+        }
+
+        /* Email Section */
+        .email-container {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .email-header {
+            background: var(--bg);
+            padding: 20px 24px;
+            border-bottom: 1px solid #E5E5E7;
+        }
+
+        .email-from {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .email-from strong {
+            color: var(--text-primary);
+        }
+
+        .email-subject {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .email-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .email-body {
+            padding: 24px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .email-attachments {
+            padding: 0 24px 24px;
+        }
+
+        .attachment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .attachment-name {
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        .attachment-size {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .discrepancy-banner {
+            background: #FFF3CD;
+            border: 1px solid #FFE69C;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #7C4500;
+        }
+
+        /* Data Extraction Table */
+        .extraction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .extraction-section {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .extraction-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .extraction-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #E5E5E7;
+        }
+
+        .extraction-row:last-child {
+            border-bottom: none;
+        }
+
+        .extraction-field {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .extraction-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .extraction-source {
+            font-size: 11px;
+            color: var(--accent);
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 4px;
+            background: #E5E5E7;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .confidence-high {
+            background: var(--green);
+        }
+
+        .confidence-medium {
+            background: var(--amber);
+        }
+
+        .confidence-low {
+            background: var(--red);
+        }
+
+        /* Confidence Scoring */
+        .confidence-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .confidence-list {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .confidence-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #E5E5E7;
+            font-size: 13px;
+        }
+
+        .confidence-item:last-child {
+            border-bottom: none;
+        }
+
+        .confidence-label {
+            color: var(--text-primary);
+        }
+
+        .confidence-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .confidence-percent {
+            font-weight: 600;
+            min-width: 35px;
+            text-align: right;
+        }
+
+        .confidence-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .source-highlight {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .document-preview {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+
+        .highlight-text {
+            background: #FFEB3B;
+            padding: 2px 4px;
+            border-radius: 2px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #F0F7FF 0%, #FFFFFF 100%);
+            border: 1px solid #D0E8FF;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .summary-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Analyst Review */
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .review-field {
+            background: var(--surface);
+            border: 1px solid #E5E5E7;
+            border-radius: 12px;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .field-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            padding: 8px;
+            background: var(--bg);
+            border-radius: 6px;
+        }
+
+        .field-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-approve {
+            background: #E8F5E9;
+            color: var(--green);
+        }
+
+        .btn-approve:hover {
+            background: #C8E6C9;
+        }
+
+        .btn-flag {
+            background: #FFF3E0;
+            color: var(--amber);
+        }
+
+        .btn-flag:hover {
+            background: #FFE0B2;
+        }
+
+        .btn-edit {
+            background: #E3F2FD;
+            color: var(--accent);
+        }
+
+        .btn-edit:hover {
+            background: #BBDEFB;
+        }
+
+        .comments-section {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            margin-top: 16px;
+        }
+
+        .comment {
+            padding: 12px 0;
+            border-bottom: 1px solid #E5E5E7;
+            font-size: 13px;
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .comment-text {
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            border-radius: 980px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Loan Monitoring */
+        .monitoring-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .covenant-tracker {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .covenant-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #E5E5E7;
+        }
+
+        .covenant-row:last-child {
+            border-bottom: none;
+        }
+
+        .covenant-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .covenant-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .covenant-trend {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .alert-card {
+            background: #FFF3CD;
+            border: 1px solid #FFE69C;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .alert-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #7C4500;
+            margin-bottom: 4px;
+        }
+
+        .alert-text {
+            font-size: 13px;
+            color: #7C4500;
+            line-height: 1.5;
+        }
+
+        /* Compliance & Audit */
+        .audit-table {
+            width: 100%;
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border-collapse: collapse;
+        }
+
+        .audit-header {
+            background: var(--bg);
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid #E5E5E7;
+        }
+
+        .audit-cell {
+            padding: 12px 16px;
+            border-bottom: 1px solid #E5E5E7;
+            font-size: 13px;
+        }
+
+        .audit-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .audit-timestamp {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .audit-action {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .audit-user {
+            color: var(--text-secondary);
+        }
+
+        .audit-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: #D1F4D1;
+            color: #0B6622;
+        }
+
+        .status-warning {
+            background: #FFF3E0;
+            color: #7C4500;
+        }
+
+        .security-badges {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .badge {
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: var(--bg);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Activity Feed */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .activity-feed {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .activity-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #E5E5E7;
+            font-size: 13px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-time {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .activity-text {
+            color: var(--text-primary);
+        }
+
+        .activity-user {
+            font-weight: 600;
+        }
+
+        .intelligence-panel {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .intelligence-input {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .intelligence-input input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #E5E5E7;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: var(--font-family);
+        }
+
+        .intelligence-input button {
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .suggestion-chip {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 4px;
+            border-radius: 6px;
+            background: var(--bg);
+            border: 1px solid #E5E5E7;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .suggestion-chip:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .response-text {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #F0F7FF;
+            border-left: 3px solid var(--accent);
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D0D0D5;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B0B0B5;
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Landing Page -->
+        <div id="landingPage" class="landing-page">
+            <div class="landing-nav">
+                <div class="landing-logo">Conquer <span>AI</span></div>
+                <div class="landing-title">Loan Document Intelligence</div>
+            </div>
+
+            <div class="landing-hero">
+                <h1>Loan Document Intelligence</h1>
+                <p>From intake to insight in minutes, not hours</p>
+
+                <div class="metrics-bar">
+                    <div class="metric">
+                        <div class="metric-value">2hrs → 4min</div>
+                        <div class="metric-label">Processing Time</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">97%</div>
+                        <div class="metric-label">Extraction Accuracy</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">$70B+</div>
+                        <div class="metric-label">Assets Under Management</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">24/7</div>
+                        <div class="metric-label">Always On</div>
+                    </div>
+                </div>
+
+                <button class="landing-cta" onclick="launchDemo()">Launch Demo →</button>
+
+                <p style="font-size: 14px; color: var(--text-secondary); margin-top: 20px;">
+                    Watch AI transform commercial loan document processing from 2 hours per document to 4 minutes of human review.
+                </p>
+            </div>
+
+            <div class="landing-footer">
+                Built by Conquer AI · March 2026
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboardContainer" class="dashboard-container hidden">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-header-title">Processing Workflow</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="sidebar-steps">
+                    <div class="step-item active" data-step="0" onclick="selectStep(0)">
+                        <div class="step-icon">1</div>
+                        <div class="step-label">Overview</div>
+                        <div class="step-tag">Status</div>
+                    </div>
+                    <div class="step-item" data-step="1" onclick="selectStep(1)">
+                        <div class="step-icon">2</div>
+                        <div class="step-label">Document Intake</div>
+                        <div class="step-tag">12 docs</div>
+                    </div>
+                    <div class="step-item" data-step="2" onclick="selectStep(2)">
+                        <div class="step-icon">3</div>
+                        <div class="step-label">Data Extraction</div>
+                        <div class="step-tag">15 fields</div>
+                    </div>
+                    <div class="step-item" data-step="3" onclick="selectStep(3)">
+                        <div class="step-icon">4</div>
+                        <div class="step-label">Confidence Scoring</div>
+                        <div class="step-tag">9/10 ✓</div>
+                    </div>
+                    <div class="step-item" data-step="4" onclick="selectStep(4)">
+                        <div class="step-icon">5</div>
+                        <div class="step-label">Analyst Review</div>
+                        <div class="step-tag">Pending</div>
+                    </div>
+                    <div class="step-item" data-step="5" onclick="selectStep(5)">
+                        <div class="step-icon">6</div>
+                        <div class="step-label">Loan Monitoring</div>
+                        <div class="step-tag">12 active</div>
+                    </div>
+                    <div class="step-item" data-step="6" onclick="selectStep(6)">
+                        <div class="step-icon">7</div>
+                        <div class="step-label">Compliance & Audit</div>
+                        <div class="step-tag">Audited</div>
+                    </div>
+                    <div class="step-item" data-step="7" onclick="selectStep(7)">
+                        <div class="step-icon">8</div>
+                        <div class="step-label">Team Activity</div>
+                        <div class="step-tag">Live</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Pipeline Bar -->
+                <div class="pipeline-bar">
+                    <div class="pipeline-stage">
+                        <div class="stage-circle completed">✓</div>
+                        <div class="stage-label">Ingest</div>
+                    </div>
+                    <div class="pipeline-connector"></div>
+                    <div class="pipeline-stage">
+                        <div class="stage-circle completed">✓</div>
+                        <div class="stage-label">Extract</div>
+                    </div>
+                    <div class="pipeline-connector"></div>
+                    <div class="pipeline-stage">
+                        <div class="stage-circle completed">✓</div>
+                        <div class="stage-label">Score</div>
+                    </div>
+                    <div class="pipeline-connector"></div>
+                    <div class="pipeline-stage">
+                        <div class="stage-circle active">→</div>
+                        <div class="stage-label">Review</div>
+                    </div>
+                    <div class="pipeline-connector"></div>
+                    <div class="pipeline-stage">
+                        <div class="stage-circle">5</div>
+                        <div class="stage-label">Monitor</div>
+                    </div>
+                    <div class="pipeline-connector"></div>
+                    <div class="pipeline-stage">
+                        <div class="stage-circle">6</div>
+                        <div class="stage-label">Comply</div>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="content-area" id="contentArea">
+                    <!-- Content dynamically rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const processContent = {
+            overview: {
+                cards: [
+                    { number: 12, label: "Total Documents", status: "Complete", statusClass: "status-complete" },
+                    { number: 82, label: "Fields Extracted", status: "Complete", statusClass: "status-complete" },
+                    { number: 9, label: "High Confidence", status: "Complete", statusClass: "status-complete" },
+                    { number: 1, label: "Needs Review", status: "Pending", statusClass: "status-pending" },
+                    { number: 12, label: "Active Loans", status: "Monitored", statusClass: "status-complete" },
+                    { number: 100, label: "Audit Events", status: "Logged", statusClass: "status-complete" }
+                ]
+            },
+            documentIntake: {
+                email: {
+                    from: "Flora Sah",
+                    subject: "Q1 Loan Document Batch | 12 Commercial Loans for Review",
+                    date: "March 21, 2026 • 2:45 PM",
+                    body: "Hi team,\n\nAttached are 12 commercial loan packages from our Riverside portfolio requiring review. This batch includes:\n\n• 3 new originations (Westside Commons, Palomar Tech Campus, Metropolitan Office)\n• 2 variable rate adjustments (Pacific Commerce, Central Valley Foods)\n• 2 refinance packages (Westfield Holdings, Garden District Retail)\n• 5 routine annual renewals\n\nPlease prioritize the Pacific Commerce variable rate adjustment — SOFR reset is April 1st.\n\nThanks,\nFlora",
+                    attachments: [
+                        { name: "Pacific_Commerce_Loan_Agreement.pdf", size: "42 pages" },
+                        { name: "Westfield_Holdings_Refinance.pdf", size: "38 pages" },
+                        { name: "Q1_Originations_Bundle.zip", size: "3 loans" }
+                    ]
+                },
+                discrepancy: "⚠ Rate Mismatch Detected: Pacific Commerce contract states SOFR + 2.35%, but system shows SOFR + 2.40%. Please verify."
+            },
+            dataExtraction: {
+                sections: [
+                    {
+                        title: "Loan Terms",
+                        rows: [
+                            { field: "Principal Amount", value: "$15,200,000", source: "Loan Doc p.7", confidence: 99 },
+                            { field: "Interest Rate", value: "SOFR + 2.35%", source: "Loan Doc p.8", confidence: 98 },
+                            { field: "Maturity Date", value: "Sept 15, 2031", source: "Loan Doc p.9", confidence: 99 },
+                            { field: "Loan Type", value: "Commercial Real Estate", source: "Loan Doc p.2", confidence: 100 },
+                            { field: "LTV Ratio", value: "72%", source: "Loan Doc p.12", confidence: 97 },
+                            { field: "Amortization", value: "30-year", source: "Loan Doc p.11", confidence: 98 }
+                        ]
+                    },
+                    {
+                        title: "Financial Covenants",
+                        rows: [
+                            { field: "DSCR Minimum", value: "1.25x", source: "Covenant p.4", confidence: 97 },
+                            { field: "Current DSCR", value: "1.48x", source: "Financial p.3", confidence: 96 },
+                            { field: "Debt Yield Minimum", value: "9.0%", source: "Covenant p.5", confidence: 95 },
+                            { field: "Current Debt Yield", value: "10.2%", source: "Financial p.4", confidence: 93 }
+                        ]
+                    },
+                    {
+                        title: "Borrower Financials",
+                        rows: [
+                            { field: "Net Operating Income", value: "$2,847,000", source: "P&L p.2", confidence: 96 },
+                            { field: "Total Revenue", value: "$4,120,000", source: "P&L p.1", confidence: 98 },
+                            { field: "Operating Expenses", value: "$1,273,000", source: "P&L p.2", confidence: 94 },
+                            { field: "Occupancy Rate", value: "94.2%", source: "Schedule p.6", confidence: 91 }
+                        ]
+                    }
+                ]
+            },
+            confidenceScoring: {
+                fields: [
+                    { name: "Principal Amount", confidence: 99, level: "high" },
+                    { name: "Interest Rate", confidence: 98, level: "high" },
+                    { name: "Maturity Date", confidence: 99, level: "high" },
+                    { name: "DSCR Minimum", confidence: 97, level: "high" },
+                    { name: "Current DSCR", confidence: 94, level: "high" },
+                    { name: "Net Operating Income", confidence: 96, level: "high" },
+                    { name: "Occupancy Rate", confidence: 91, level: "high" },
+                    { name: "Insurance Requirements", confidence: 87, level: "medium" },
+                    { name: "Environmental Compliance", confidence: 82, level: "medium" },
+                    { name: "Prepayment Penalty Terms", confidence: 78, level: "low" }
+                ],
+                sourceText: "Page 7 of Pacific Commerce Loan Agreement:\n\n\"The Borrower shall maintain a minimum DSCR of 1.25x, calculated annually. As of the last fiscal year ending December 31, 2025, the Borrower's actual DSCR is 1.48x, which exceeds the covenant requirement. The Principal Amount is $15,200,000, with interest calculated at SOFR + 2.35% per annum...\"",
+                summary: "9 of 10 fields above 85% confidence threshold. 1 field (Prepayment Penalty Terms) flagged for manual review."
+            },
+            analystReview: {
+                fields: [
+                    { name: "Principal Amount", value: "$15,200,000", status: "approved", source: "Loan Doc p.7" },
+                    { name: "Interest Rate", value: "SOFR + 2.35%", status: "approved", source: "Loan Doc p.8" },
+                    { name: "Maturity Date", value: "Sept 15, 2031", status: "approved", source: "Loan Doc p.9" },
+                    { name: "DSCR Minimum", value: "1.25x", status: "pending", source: "Covenant p.4" },
+                    { name: "Current DSCR", value: "1.48x", status: "pending", source: "Financial p.3" }
+                ],
+                comments: [
+                    { author: "Sarah Kim, Credit Analyst", text: "Confirmed NOI figure against Q4 financials - matches within 2%. Looks good." },
+                    { author: "James Chen, Portfolio Manager", text: "DSCR trend is healthy. No concerns for this vintage." }
+                ]
+            },
+            loanMonitoring: {
+                activeLoan: {
+                    name: "Pacific Commerce CRE Loan",
+                    borrower: "Pacific Commerce Inc.",
+                    principal: "$15,200,000",
+                    status: "Active"
+                },
+                covenants: [
+                    { label: "DSCR", minimum: "1.25x", current: "1.48x", trend: "1.48x → 1.45x → 1.42x (last 3Q)" },
+                    { label: "Debt Yield", minimum: "9.0%", current: "10.2%", trend: "Stable" },
+                    { label: "LTV", minimum: "< 75%", current: "72%", trend: "Improving" }
+                ],
+                portfolio: {
+                    total: 12,
+                    compliant: 11,
+                    watchlist: 1
+                }
+            },
+            complianceAudit: {
+                auditTrail: [
+                    { action: "Document uploaded", user: "Flora Sah", time: "2026-03-21 14:45", status: "success" },
+                    { action: "Data extracted via AI", user: "System", time: "2026-03-21 14:47", status: "success" },
+                    { action: "Confidence scored", user: "System", time: "2026-03-21 14:48", status: "success" },
+                    { action: "Analyst review pending", user: "Sarah Kim", time: "2026-03-21 15:02", status: "warning" },
+                    { action: "Principal Amount approved", user: "Sarah Kim", time: "2026-03-21 15:15", status: "success" },
+                    { action: "DSCR field flagged for review", user: "Sarah Kim", time: "2026-03-21 15:18", status: "warning" },
+                    { action: "Monitoring system notified", user: "System", time: "2026-03-21 15:20", status: "success" },
+                    { action: "Audit log recorded", user: "System", time: "2026-03-21 15:21", status: "success" }
+                ],
+                governance: "All extractions traceable to source document. No data leaves the secure environment. Full chain of custody maintained."
+            },
+            teamActivity: {
+                activity: [
+                    { time: "2:47 PM", user: "System", action: "AI extraction completed for Pacific Commerce agreement" },
+                    { time: "2:50 PM", user: "Sarah Kim", action: "Began analyst review of extracted fields" },
+                    { time: "3:02 PM", user: "Flora Sah", action: "Marked urgent: SOFR reset pending April 1st" },
+                    { time: "3:15 PM", user: "Sarah Kim", action: "Approved 5 fields, flagged 1 for manual verification" },
+                    { time: "3:18 PM", user: "James Chen", action: "Reviewed DSCR trend — looks healthy" },
+                    { time: "3:20 PM", user: "Matt Rivera (CISO)", action: "Compliance audit complete — all events logged" }
+                ],
+                suggestions: [
+                    "What's the DSCR on Pacific Commerce?",
+                    "Show covenant breaches this quarter",
+                    "Compare Westfield refinance terms",
+                    "Flag loans approaching maturity",
+                    "SOFR rate impact analysis"
+                ]
+            }
+        };
+
+        let currentStep = 0;
+
+        function launchDemo() {
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('dashboardContainer').classList.remove('hidden');
+            renderContent(0);
+            sessionStorage.setItem('currentStep', '0');
+        }
+
+        function selectStep(step) {
+            currentStep = step;
+            document.querySelectorAll('.step-item').forEach((item, idx) => {
+                item.classList.toggle('active', idx === step);
+            });
+            renderContent(step);
+            sessionStorage.setItem('currentStep', step);
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep + 1) / 8) * 100;
+            document.querySelector('.progress-fill').style.width = progress + '%';
+        }
+
+        function renderContent(step) {
+            const contentArea = document.getElementById('contentArea');
+            contentArea.innerHTML = '';
+
+            switch(step) {
+                case 0: renderOverview(contentArea); break;
+                case 1: renderDocumentIntake(contentArea); break;
+                case 2: renderDataExtraction(contentArea); break;
+                case 3: renderConfidenceScoring(contentArea); break;
+                case 4: renderAnalystReview(contentArea); break;
+                case 5: renderLoanMonitoring(contentArea); break;
+                case 6: renderComplianceAudit(contentArea); break;
+                case 7: renderTeamActivity(contentArea); break;
+            }
+        }
+
+        function renderOverview(container) {
+            const html = `
+                <div>
+                    <h2 class="card-title">Pipeline Status Overview</h2>
+                    <div class="overview-grid">
+                        ${processContent.overview.cards.map(card => `
+                            <div class="overview-card">
+                                <div class="overview-card-number">${card.number}</div>
+                                <div class="overview-card-label">${card.label}</div>
+                                <div class="overview-card-status ${card.statusClass}">${card.status}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function renderDocumentIntake(container) {
+            const email = processContent.documentIntake.email;
+            const html = `
+                <div>
+                    <h2 class="card-title">Email: New Document Batch</h2>
+                    <div class="email-container">
+                        <div class="email-header">
+                            <div class="email-from">From: <strong>${email.from}</strong></div>
+                            <div class="email-subject">${email.subject}</div>
+                            <div class="email-meta">${email.date}</div>
+                        </div>
+                        <div class="email-body">${email.body.split('\n').join('<br>')}</div>
+                        <div class="email-attachments">
+                            <div class="card-subtitle">Attachments</div>
+                            ${email.attachments.map(att => `
+                                <div class="attachment-item">
+                                    <span class="attachment-name">📎 ${att.name}</span>
+                                    <span class="attachment-size">${att.size}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="discrepancy-banner">
+                        ⚠ ${processContent.documentIntake.discrepancy}
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function renderDataExtraction(container) {
+            let html = '<div><h2 class="card-title">Extracted Data Fields</h2>';
+
+            processContent.dataExtraction.sections.forEach(section => {
+                html += `
+                    <div class="extraction-section">
+                        <div class="extraction-section-title">📋 ${section.title}</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                            ${section.rows.map(row => `
+                                <div>
+                                    <div class="extraction-field">${row.field}</div>
+                                    <div class="extraction-value">${row.value}</div>
+                                    <div class="extraction-source">Source: ${row.source}</div>
+                                    <div style="margin-top: 8px;">
+                                        <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Confidence: ${row.confidence}%</div>
+                                        <div class="confidence-bar">
+                                            <div class="confidence-fill confidence-high" style="width: ${row.confidence}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function renderConfidenceScoring(container) {
+            const html = `
+                <div>
+                    <h2 class="card-title">Confidence Scoring & Source Verification</h2>
+                    <div class="confidence-grid">
+                        <div class="confidence-list">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary);">Field Confidence Analysis</div>
+                            ${processContent.confidenceScoring.fields.map(field => `
+                                <div class="confidence-item">
+                                    <span class="confidence-label">${field.name}</span>
+                                    <div class="confidence-badge">
+                                        <span class="confidence-percent">${field.confidence}%</span>
+                                        <div class="confidence-dot" style="background: ${field.confidence >= 95 ? 'var(--green)' : field.confidence >= 85 ? 'var(--amber)' : 'var(--red)'}"></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="source-highlight">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary);">Source Document Highlight</div>
+                            <div class="document-preview">
+                                Page 7 of Pacific Commerce Loan Agreement:<br><br>
+                                "The Borrower shall maintain a minimum DSCR of <span class="highlight-text">1.25x</span>, calculated annually. As of the last fiscal year ending December 31, 2025, the Borrower's actual DSCR is <span class="highlight-text">1.48x</span>, which exceeds the covenant requirement. The Principal Amount is <span class="highlight-text">$15,200,000</span>, with interest calculated at <span class="highlight-text">SOFR + 2.35%</span> per annum..."
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-text">✓ ${processContent.confidenceScoring.summary}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function renderAnalystReview(container) {
+            const html = `
+                <div>
+                    <h2 class="card-title">Analyst Review & Approval</h2>
+                    <div class="review-form">
+                        ${processContent.analystReview.fields.map((field, idx) => `
+                            <div class="review-field">
+                                <div class="field-group">
+                                    <div class="field-label">${field.name}</div>
+                                    <div class="field-value">${field.value}</div>
+                                    <div style="font-size: 11px; color: var(--text-secondary);">Source: ${field.source}</div>
+                                </div>
+                                <div class="field-group">
+                                    <div class="field-label">Action</div>
+                                    <div class="field-controls">
+                                        <button class="btn-small ${field.status === 'approved' ? 'btn-approve' : 'btn-edit'}" onclick="approveField(${idx})">
+                                            ${field.status === 'approved' ? '✓ Approved' : 'Approve'}
+                                        </button>
+                                        <button class="btn-small btn-flag" onclick="flagField(${idx})">Flag</button>
+                                        <button class="btn-small btn-edit" onclick="editField(${idx})">Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="comments-section">
+                        <div class="card-title">Team Comments</div>
+                        ${processContent.analystReview.comments.map(comment => `
+                            <div class="comment">
+                                <div class="comment-author">${comment.author}</div>
+                                <div class="comment-text">${comment.text}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <button class="btn-primary" style="margin-top: 20px;" onclick="signOff()">Request Analyst Sign-off</button>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function renderLoanMonitoring(container) {
+            const loan = processContent.loanMonitoring.activeLoan;
+            const html = `
+                <div>
+                    <h2 class="card-title">Active Loan Monitoring</h2>
+
+                    <div class="monitoring-grid">
+                        <div>
+                            <div class="card">
+                                <div class="card-title">${loan.name}</div>
+                                <div style="font-size: 13px; line-height: 1.8;">
+                                    <div><strong>Borrower:</strong> ${loan.borrower}</div>
+                                    <div><strong>Principal:</strong> ${loan.principal}</div>
+                                    <div><strong>Status:</strong> <span style="color: var(--green); font-weight: 600;">${loan.status}</span></div>
+                                </div>
+                            </div>
+
+                            <div class="alert-card">
+                                <div class="alert-title">⚠ Rate Adjustment Notice</div>
+                                <div class="alert-text">SOFR reset on April 1 — new rate will be SOFR + 2.35% (estimated 7.12% all-in). Monitor closely.</div>
+                            </div>
+                        </div>
+
+                        <div class="covenant-tracker">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary);">Covenant Compliance</div>
+                            ${processContent.loanMonitoring.covenants.map(cov => `
+                                <div class="covenant-row">
+                                    <div>
+                                        <div class="covenant-label">${cov.label}</div>
+                                        <div class="covenant-value">${cov.current}</div>
+                                    </div>
+                                    <div>
+                                        <div class="covenant-label">Requirement / Trend</div>
+                                        <div class="covenant-value">${cov.minimum}</div>
+                                        <div class="covenant-trend">${cov.trend}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 16px;">
+                        <div class="card-title">Portfolio Health</div>
+                        <div style="font-size: 13px; line-height: 2;">
+                            <div>• <strong>${processContent.loanMonitoring.portfolio.total} loans</strong> monitored in real-time</div>
+                            <div>• <strong style="color: var(--green);">${processContent.loanMonitoring.portfolio.compliant} compliant</strong> with all covenants</div>
+                            <div>• <strong style="color: var(--amber);">${processContent.loanMonitoring.portfolio.watchlist} on watch list</strong> for trend monitoring</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function renderComplianceAudit(container) {
+            const html = `
+                <div>
+                    <h2 class="card-title">Compliance & Audit Trail</h2>
+
+                    <div style="background: var(--surface); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-sm); margin-bottom: 16px;">
+                        <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary);">Full Audit Log</div>
+                        <div class="audit-row" style="border-bottom: 1px solid #E5E5E7; padding-bottom: 12px; margin-bottom: 12px;">
+                            <div style="font-weight: 600; color: var(--text-secondary); font-size: 12px;">Action</div>
+                            <div style="font-weight: 600; color: var(--text-secondary); font-size: 12px;">User</div>
+                            <div style="font-weight: 600; color: var(--text-secondary); font-size: 12px;">Timestamp</div>
+                            <div style="font-weight: 600; color: var(--text-secondary); font-size: 12px;">Status</div>
+                        </div>
+                        ${processContent.complianceAudit.auditTrail.map(entry => `
+                            <div class="audit-row" style="border-bottom: 1px solid #E5E5E7; padding-bottom: 12px; margin-bottom: 12px;">
+                                <div class="audit-action">${entry.action}</div>
+                                <div class="audit-user">${entry.user}</div>
+                                <div class="audit-timestamp">${entry.time}</div>
+                                <div class="audit-status ${entry.status === 'success' ? 'status-success' : 'status-warning'}">${entry.status}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="card">
+                            <div class="card-title">Data Governance</div>
+                            <div style="font-size: 13px; line-height: 1.8; color: var(--text-primary);">
+                                ${processContent.complianceAudit.governance}
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-title">Security & Compliance</div>
+                            <div class="security-badges">
+                                <div class="badge">🔒 SOC 2</div>
+                                <div class="badge">🔐 Bank-grade Encryption</div>
+                                <div class="badge">👁 Real-time Monitoring</div>
+                                <div class="badge">📋 FFIEC Standards</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function renderTeamActivity(container) {
+            const html = `
+                <div>
+                    <h2 class="card-title">Team Activity & AI Intelligence</h2>
+                    <div class="activity-grid">
+                        <div class="activity-feed">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary);">Recent Activity</div>
+                            ${processContent.teamActivity.activity.map(item => `
+                                <div class="activity-item">
+                                    <div class="activity-time">${item.time}</div>
+                                    <div class="activity-text"><span class="activity-user">${item.user}:</span> ${item.action}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="intelligence-panel">
+                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary);">AI Intelligence Assistant</div>
+                            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Ask questions about your loan portfolio:</div>
+                            <div class="intelligence-input">
+                                <input type="text" placeholder="What's the DSCR on Pacific Commerce?" id="aiInput">
+                                <button onclick="askAI()">Ask</button>
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap;">
+                                ${processContent.teamActivity.suggestions.map(suggestion => `
+                                    <div class="suggestion-chip" onclick="askAI('${suggestion}')">${suggestion}</div>
+                                `).join('')}
+                            </div>
+                            <div id="aiResponse"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function approveField(idx) {
+            processContent.analystReview.fields[idx].status = 'approved';
+            renderContent(4);
+            showNotification('✓ Field approved');
+        }
+
+        function flagField(idx) {
+            processContent.analystReview.fields[idx].status = 'flagged';
+            renderContent(4);
+            showNotification('⚠ Field flagged for manual review');
+        }
+
+        function editField(idx) {
+            const newValue = prompt('Edit field value:');
+            if (newValue) {
+                processContent.analystReview.fields[idx].value = newValue;
+                renderContent(4);
+                showNotification('✓ Field updated');
+            }
+        }
+
+        function signOff() {
+            showNotification('✓ Analyst sign-off requested. Escalating to Portfolio Manager.');
+        }
+
+        function askAI(question = null) {
+            const input = question || document.getElementById('aiInput').value;
+            if (!input) return;
+
+            const response = document.getElementById('aiResponse');
+            let answer = '';
+
+            if (input.toLowerCase().includes('dscr')) {
+                answer = 'Pacific Commerce DSCR is currently 1.48x, which is above the 1.25x minimum requirement. Trend over last 3 quarters: 1.48x → 1.45x → 1.42x — slight downward trend but still healthy. Monitor closely.';
+            } else if (input.toLowerCase().includes('breach')) {
+                answer = 'No covenant breaches this quarter. All 12 monitored loans are compliant. 1 loan on watch list for trend monitoring.';
+            } else if (input.toLowerCase().includes('westfield')) {
+                answer = 'Westfield Holdings refinance: Principal $8,400,000, SOFR + 2.25%, Maturity March 2034. All terms extracted and verified. Ready for approval.';
+            } else if (input.toLowerCase().includes('maturity')) {
+                answer = 'No loans approaching maturity in next 6 months. Earliest maturity: Pacific Commerce (Sept 2031), 5+ years out.';
+            } else if (input.toLowerCase().includes('sofr')) {
+                answer = 'SOFR impact: Pacific Commerce will see rate reset April 1st. Estimated all-in rate: 7.12%. No other April-due SOFR resets in portfolio.';
+            } else {
+                answer = 'I can help you analyze loan terms, covenant compliance, SOFR impacts, and portfolio trends. What would you like to know?';
+            }
+
+            response.innerHTML = `<div class="response-text">${answer}</div>`;
+            document.getElementById('aiInput').value = '';
+        }
+
+        function showNotification(msg) {
+            const notif = document.createElement('div');
+            notif.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: white; padding: 12px 20px; border-radius: 8px; font-size: 13px; box-shadow: var(--shadow-md); z-index: 1000;';
+            notif.textContent = msg;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 3000);
+        }
+
+        // Restore state on reload
+        window.addEventListener('load', () => {
+            const saved = sessionStorage.getItem('currentStep');
+            if (saved && document.getElementById('dashboardContainer').classList.contains('hidden') === false) {
+                currentStep = parseInt(saved);
+                selectStep(currentStep);
+            }
+        });
+    </script>
+</body>
+</html>
