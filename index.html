@@ -500,65 +500,93 @@
         }
 
         .overview-card-number {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
             color: var(--accent);
             margin-bottom: 8px;
-            font-variant-numeric: tabular-nums;
-            counter-increment: card-counter;
         }
 
         .overview-card-label {
             font-size: 13px;
             color: var(--text-secondary);
             margin-bottom: 12px;
-            font-weight: 500;
         }
 
         .overview-card-status {
-            display: inline-block;
             padding: 6px 12px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 11px;
             font-weight: 600;
-            animation: slideInRight 0.4s var(--timing) backwards;
         }
 
         .status-complete {
-            background: rgba(52, 199, 89, 0.1);
+            background: rgba(52, 199, 89, 0.15);
             color: var(--green);
         }
 
         .status-pending {
-            background: rgba(255, 149, 0, 0.1);
+            background: rgba(255, 149, 0, 0.15);
             color: var(--amber);
         }
 
-        @keyframes slideInRight {
-            from { transform: translateX(-12px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .sparkline-container {
+            margin-top: 12px;
+            height: 40px;
+        }
+
+        /* ===== ALERT SECTION ===== */
+        .recent-alerts {
+            margin-top: 32px;
+            padding: 24px;
+            background: var(--surface);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .alert-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            animation: slideInLeft 0.4s var(--timing) backwards;
+        }
+
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+
+        .alert-item:nth-child(1) { animation-delay: 0.2s; }
+        .alert-item:nth-child(2) { animation-delay: 0.25s; }
+        .alert-item:nth-child(3) { animation-delay: 0.3s; }
+        .alert-item:nth-child(4) { animation-delay: 0.35s; }
+
+        .alert-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .alert-message {
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-top: 4px;
+            line-height: 1.5;
         }
 
         /* ===== DOCUMENT INTAKE ===== */
         .email-container {
             background: var(--surface);
             border-radius: 16px;
-            overflow: hidden;
+            padding: 24px;
             box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.06);
             margin-bottom: 20px;
-            animation: slideUp 0.6s var(--timing);
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(32px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .email-header {
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(0, 113, 227, 0.08) 0%, rgba(52, 199, 89, 0.04) 100%);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            animation: fadeIn 0.6s var(--timing) 0.1s backwards;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 16px;
+            margin-bottom: 16px;
         }
 
         .email-from {
@@ -580,52 +608,39 @@
         }
 
         .email-body {
-            padding: 20px;
             font-size: 13px;
-            line-height: 1.7;
             color: var(--text-primary);
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            animation: fadeIn 0.6s var(--timing) 0.2s backwards;
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .email-attachments {
-            padding: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
-            background: rgba(0, 0, 0, 0.01);
-            animation: fadeIn 0.6s var(--timing) 0.3s backwards;
+            margin-top: 20px;
         }
 
         .attachment-item {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             padding: 12px;
-            background: var(--surface);
+            background: rgba(0, 113, 227, 0.05);
             border-radius: 8px;
             margin-bottom: 8px;
-            transition: all 0.3s var(--timing);
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            animation: slideInLeft 0.4s var(--timing) backwards;
+            animation: slideInLeft 0.3s var(--timing) backwards;
         }
 
-        .attachment-item:last-child {
-            margin-bottom: 0;
-        }
+        .attachment-item:nth-child(1) { animation-delay: 0.1s; }
+        .attachment-item:nth-child(2) { animation-delay: 0.15s; }
+        .attachment-item:nth-child(3) { animation-delay: 0.2s; }
 
         .attachment-item:hover {
-            background: rgba(0, 113, 227, 0.04);
-            border-color: var(--accent);
-        }
-
-        @keyframes slideInLeft {
-            from { transform: translateX(-16px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            background: rgba(0, 113, 227, 0.08);
+            transform: translateX(4px);
         }
 
         .attachment-name {
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
             color: var(--text-primary);
         }
 
@@ -637,89 +652,209 @@
         .discrepancy-banner {
             padding: 16px 20px;
             background: rgba(255, 149, 0, 0.1);
-            border: 1px solid rgba(255, 149, 0, 0.3);
-            border-radius: 12px;
-            color: #7C4500;
+            border-left: 3px solid var(--amber);
+            border-radius: 8px;
             font-size: 13px;
-            font-weight: 500;
-            animation: slideUp 0.6s var(--timing);
+            color: var(--text-primary);
+            animation: slideInUp 0.4s var(--timing);
+        }
+
+        .processing-progress {
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .progress-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-large {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--green));
+            width: 100%;
+            border-radius: 4px;
+            animation: slideRight 0.8s var(--timing);
+        }
+
+        @keyframes slideRight {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .doc-type-chart {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .doc-type-item {
+            text-align: center;
+            padding: 12px;
+            background: rgba(0, 113, 227, 0.05);
+            border-radius: 12px;
+            animation: slideInUp 0.4s var(--timing) backwards;
+        }
+
+        .doc-type-item:nth-child(1) { animation-delay: 0.15s; }
+        .doc-type-item:nth-child(2) { animation-delay: 0.2s; }
+        .doc-type-item:nth-child(3) { animation-delay: 0.25s; }
+        .doc-type-item:nth-child(4) { animation-delay: 0.3s; }
+
+        .doc-type-count {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .doc-type-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 4px;
         }
 
         /* ===== DATA EXTRACTION ===== */
         .extraction-section {
             margin-bottom: 28px;
-            animation: fadeInUp 0.6s var(--timing) backwards;
         }
 
-        .extraction-section:nth-of-type(1) { animation-delay: 0.1s; }
-        .extraction-section:nth-of-type(2) { animation-delay: 0.2s; }
-        .extraction-section:nth-of-type(3) { animation-delay: 0.3s; }
-
         .extraction-section-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .extraction-field {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
             font-weight: 600;
+            margin-bottom: 6px;
         }
 
         .extraction-value {
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .extraction-source {
             font-size: 11px;
-            color: var(--accent);
-            font-weight: 500;
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
         .confidence-bar {
             width: 100%;
-            height: 6px;
-            background: #E5E5E7;
-            border-radius: 3px;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 2px;
             overflow: hidden;
-            animation: slideInRight 0.6s var(--timing) backwards;
         }
 
         .confidence-fill {
             height: 100%;
-            border-radius: 3px;
-            transition: width 0.6s var(--timing);
+            border-radius: 2px;
+            animation: fillWidth 1s var(--timing) backwards;
+        }
+
+        @keyframes fillWidth {
+            from { width: 0 !important; }
+            to { width: var(--width); }
         }
 
         .confidence-high {
-            background: linear-gradient(90deg, var(--green), #31CC8E);
+            background: linear-gradient(90deg, var(--accent), var(--green));
         }
 
         .confidence-medium {
-            background: linear-gradient(90deg, var(--amber), #FFA500);
+            background: linear-gradient(90deg, var(--accent), var(--amber));
         }
 
         .confidence-low {
-            background: linear-gradient(90deg, var(--red), #FF6B6B);
+            background: var(--red);
+        }
+
+        .expandable-row {
+            padding: 12px;
+            background: var(--surface);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s var(--timing);
+        }
+
+        .expandable-row:hover {
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.1);
+        }
+
+        .expandable-row.expanded {
+            background: rgba(0, 113, 227, 0.05);
         }
 
         /* ===== CONFIDENCE SCORING ===== */
+        .gauge-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .confidence-gauge {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+
+        .gauge-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .gauge-percent {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .gauge-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
         .confidence-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
-            animation: fadeIn 0.6s var(--timing);
         }
 
         .confidence-list {
@@ -728,7 +863,6 @@
             padding: 20px;
             box-shadow: var(--shadow-md);
             border: 1px solid rgba(0, 0, 0, 0.06);
-            animation: slideUp 0.6s var(--timing);
         }
 
         .confidence-item {
@@ -736,37 +870,52 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-            transition: all 0.3s var(--timing);
-            animation: slideInLeft 0.4s var(--timing) backwards;
-            cursor: pointer;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            animation: slideInLeft 0.3s var(--timing) backwards;
         }
 
         .confidence-item:last-child {
             border-bottom: none;
         }
 
-        .confidence-item:nth-child(1) { animation-delay: 0.05s; }
-        .confidence-item:nth-child(2) { animation-delay: 0.1s; }
-        .confidence-item:nth-child(3) { animation-delay: 0.15s; }
-        .confidence-item:nth-child(4) { animation-delay: 0.2s; }
-        .confidence-item:nth-child(5) { animation-delay: 0.25s; }
-        .confidence-item:nth-child(6) { animation-delay: 0.3s; }
-        .confidence-item:nth-child(7) { animation-delay: 0.35s; }
-        .confidence-item:nth-child(8) { animation-delay: 0.4s; }
-        .confidence-item:nth-child(9) { animation-delay: 0.45s; }
-        .confidence-item:nth-child(10) { animation-delay: 0.5s; }
+        .confidence-item:nth-child(1) { animation-delay: 0.1s; }
+        .confidence-item:nth-child(2) { animation-delay: 0.15s; }
+        .confidence-item:nth-child(3) { animation-delay: 0.2s; }
+        .confidence-item:nth-child(4) { animation-delay: 0.25s; }
+        .confidence-item:nth-child(5) { animation-delay: 0.3s; }
+        .confidence-item:nth-child(6) { animation-delay: 0.35s; }
+        .confidence-item:nth-child(7) { animation-delay: 0.4s; }
+        .confidence-item:nth-child(8) { animation-delay: 0.45s; }
+        .confidence-item:nth-child(9) { animation-delay: 0.5s; }
+        .confidence-item:nth-child(10) { animation-delay: 0.55s; }
 
         .confidence-item:hover {
-            background: rgba(0, 113, 227, 0.04);
-            padding-left: 8px;
+            background: rgba(0, 113, 227, 0.05);
+            transform: translateX(4px);
+        }
+
+        .confidence-item.clickable {
+            cursor: pointer;
         }
 
         .confidence-label {
             font-size: 13px;
             color: var(--text-primary);
-            font-weight: 500;
-            flex: 1;
+        }
+
+        .confidence-bar-horizontal {
+            width: 80px;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .confidence-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--green));
+            border-radius: 3px;
+            animation: fillWidth 1.2s var(--timing) backwards;
         }
 
         .confidence-badge {
@@ -776,25 +925,17 @@
         }
 
         .confidence-percent {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
             min-width: 35px;
             text-align: right;
         }
 
         .confidence-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            animation: pop 0.4s var(--timing) backwards;
-        }
-
-        @keyframes pop {
-            0% { transform: scale(0); }
-            70% { transform: scale(1.2); }
-            100% { transform: scale(1); }
         }
 
         .source-highlight {
@@ -803,99 +944,83 @@
             padding: 20px;
             box-shadow: var(--shadow-md);
             border: 1px solid rgba(0, 0, 0, 0.06);
-            animation: slideUp 0.6s var(--timing);
         }
 
         .document-preview {
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.8;
             color: var(--text-primary);
+            background: rgba(0, 0, 0, 0.02);
             padding: 16px;
-            background: rgba(0, 113, 227, 0.04);
             border-radius: 8px;
+            margin: 12px 0;
             border-left: 3px solid var(--accent);
-            margin-bottom: 16px;
-            animation: fadeIn 0.6s var(--timing) 0.2s backwards;
         }
 
         .highlight-text {
             background: rgba(255, 193, 7, 0.3);
-            padding: 2px 4px;
-            border-radius: 2px;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: 600;
-            animation: highlightPulse 0.6s var(--timing) infinite;
+            animation: pulse 1.5s ease-in-out infinite;
         }
 
-        @keyframes highlightPulse {
+        @keyframes pulseHighlight {
             0%, 100% { background: rgba(255, 193, 7, 0.3); }
             50% { background: rgba(255, 193, 7, 0.5); }
         }
 
         .summary-card {
-            padding: 12px 16px;
-            background: rgba(52, 199, 89, 0.08);
-            border: 1px solid rgba(52, 199, 89, 0.2);
-            border-radius: 8px;
-            animation: slideInUp 0.4s var(--timing);
-        }
-
-        @keyframes slideInUp {
-            from { transform: translateY(12px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(52, 199, 89, 0.1);
+            border-left: 3px solid var(--green);
+            border-radius: 6px;
         }
 
         .summary-text {
-            font-size: 13px;
-            color: var(--green);
-            font-weight: 500;
+            font-size: 12px;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
 
         /* ===== ANALYST REVIEW ===== */
         .review-form {
-            display: grid;
+            display: flex;
+            flex-direction: column;
             gap: 16px;
             margin-bottom: 24px;
-            animation: fadeIn 0.6s var(--timing);
         }
 
         .review-field {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             padding: 16px;
             background: var(--surface);
             border-radius: 12px;
             border: 1px solid rgba(0, 0, 0, 0.06);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            align-items: center;
-            transition: all 0.3s var(--timing);
-            animation: slideInLeft 0.4s var(--timing) backwards;
-            box-shadow: var(--shadow-sm);
+            animation: slideInUp 0.4s var(--timing) backwards;
         }
 
-        .review-field:nth-child(1) { animation-delay: 0.05s; }
-        .review-field:nth-child(2) { animation-delay: 0.1s; }
-        .review-field:nth-child(3) { animation-delay: 0.15s; }
-        .review-field:nth-child(4) { animation-delay: 0.2s; }
-        .review-field:nth-child(5) { animation-delay: 0.25s; }
-
-        .review-field:hover {
-            box-shadow: var(--shadow-md);
-            border-color: var(--accent);
-            background: rgba(0, 113, 227, 0.02);
-        }
+        .review-field:nth-child(1) { animation-delay: 0.1s; }
+        .review-field:nth-child(2) { animation-delay: 0.15s; }
+        .review-field:nth-child(3) { animation-delay: 0.2s; }
+        .review-field:nth-child(4) { animation-delay: 0.25s; }
+        .review-field:nth-child(5) { animation-delay: 0.3s; }
 
         .field-group {
             display: flex;
             flex-direction: column;
-            gap: 4px;
         }
 
         .field-label {
             font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: var(--text-secondary);
-            font-weight: 600;
+            margin-bottom: 6px;
         }
 
         .field-value {
@@ -907,119 +1032,183 @@
         .field-controls {
             display: flex;
             gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
         }
 
         .btn-small {
             padding: 8px 12px;
             border-radius: 6px;
-            border: none;
-            font-size: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: var(--surface);
+            color: var(--text-primary);
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s var(--timing);
-            white-space: nowrap;
         }
 
-        .btn-edit {
-            background: rgba(0, 113, 227, 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(0, 113, 227, 0.2);
-        }
-
-        .btn-edit:hover {
-            background: rgba(0, 113, 227, 0.15);
+        .btn-small:hover {
             border-color: var(--accent);
-            transform: translateY(-2px);
+            background: rgba(0, 113, 227, 0.05);
+            transform: translateY(-1px);
         }
 
         .btn-approve {
             background: rgba(52, 199, 89, 0.15);
             color: var(--green);
-            border: 1px solid rgba(52, 199, 89, 0.3);
-            animation: scaleIn 0.3s var(--timing);
+            border-color: var(--green);
         }
 
         .btn-approve:hover {
-            background: rgba(52, 199, 89, 0.2);
+            background: rgba(52, 199, 89, 0.25);
         }
 
         .btn-flag {
-            background: rgba(255, 149, 0, 0.1);
-            color: var(--amber);
-            border: 1px solid rgba(255, 149, 0, 0.2);
-        }
-
-        .btn-flag:hover {
             background: rgba(255, 149, 0, 0.15);
+            color: var(--amber);
             border-color: var(--amber);
         }
 
-        .comments-section {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 20px;
-            animation: slideUp 0.6s var(--timing);
+        .btn-flag:hover {
+            background: rgba(255, 149, 0, 0.25);
         }
 
-        .comment {
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-            animation: slideInLeft 0.4s var(--timing) backwards;
-        }
-
-        .comment:last-child {
-            border-bottom: none;
-        }
-
-        .comment:nth-child(1) { animation-delay: 0.1s; }
-        .comment:nth-child(2) { animation-delay: 0.15s; }
-
-        .comment-author {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .comment-text {
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.6;
+        .btn-edit {
+            background: rgba(0, 113, 227, 0.15);
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
         .btn-primary {
-            padding: 12px 28px;
+            padding: 12px 24px;
             border-radius: 8px;
             background: var(--accent);
             color: white;
             border: none;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s var(--timing);
-            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
-            animation: slideInUp 0.4s var(--timing);
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.2);
         }
 
         .btn-primary:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 113, 227, 0.4);
+            box-shadow: 0 4px 16px rgba(0, 113, 227, 0.3);
         }
 
         .btn-primary:active {
             transform: translateY(0);
         }
 
+        .approval-progress {
+            margin-bottom: 24px;
+            padding: 16px;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .approval-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .progress-segments {
+            display: flex;
+            gap: 6px;
+        }
+
+        .progress-segment {
+            flex: 1;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-segment.approved {
+            background: var(--green);
+            animation: fillWidth 0.6s var(--timing);
+        }
+
+        .comments-section {
+            margin-top: 32px;
+        }
+
+        .comment {
+            padding: 16px;
+            background: var(--surface);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            animation: slideInLeft 0.3s var(--timing) backwards;
+        }
+
+        .comment:nth-child(1) { animation-delay: 0.15s; }
+        .comment:nth-child(2) { animation-delay: 0.2s; }
+
+        .comment-author {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .comment-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .chat-bubble {
+            display: inline-block;
+            padding: 12px 16px;
+            background: rgba(0, 113, 227, 0.1);
+            border-radius: 12px;
+            border-left: 3px solid var(--accent);
+            font-size: 13px;
+            color: var(--text-primary);
+            margin-top: 8px;
+            animation: slideInUp 0.4s var(--timing);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            animation: typing 0.6s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+            30% { transform: translateY(-8px); opacity: 1; }
+        }
+
         /* ===== LOAN MONITORING ===== */
         .monitoring-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-            animation: fadeIn 0.6s var(--timing);
+            gap: 24px;
+            margin-bottom: 24px;
         }
 
         .card {
@@ -1028,79 +1217,66 @@
             border-radius: 16px;
             box-shadow: var(--shadow-md);
             border: 1px solid rgba(0, 0, 0, 0.06);
-            transition: all 0.3s var(--timing);
-            animation: slideUp 0.6s var(--timing) backwards;
+            animation: slideInUp 0.4s var(--timing) backwards;
         }
 
-        .monitoring-grid .card:nth-child(1) { animation-delay: 0.1s; }
-        .monitoring-grid .card:nth-child(2) { animation-delay: 0.2s; }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-        }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.15s; }
 
         .alert-card {
             padding: 16px;
-            background: rgba(255, 149, 0, 0.08);
-            border: 1px solid rgba(255, 149, 0, 0.2);
-            border-radius: 12px;
+            background: rgba(255, 149, 0, 0.1);
+            border-left: 3px solid var(--amber);
+            border-radius: 8px;
             margin-top: 16px;
-            animation: slideInUp 0.4s var(--timing);
+            animation: slideInUp 0.4s var(--timing) 0.2s backwards;
         }
 
         .alert-title {
             font-size: 12px;
-            font-weight: 700;
-            color: #7C4500;
-            margin-bottom: 4px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
         }
 
         .alert-text {
-            font-size: 13px;
-            color: #7C4500;
-            line-height: 1.5;
+            font-size: 12px;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
 
         .covenant-tracker {
-            padding: 20px;
             background: var(--surface);
             border-radius: 16px;
+            padding: 20px;
             box-shadow: var(--shadow-md);
             border: 1px solid rgba(0, 0, 0, 0.06);
-            animation: slideUp 0.6s var(--timing);
+            animation: slideInUp 0.4s var(--timing) 0.15s backwards;
         }
 
         .covenant-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 20px;
             padding: 12px 0;
-            border-bottom: 1px solid #E5E5E7;
-            animation: fadeInUp 0.4s var(--timing) backwards;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            animation: slideInUp 0.3s var(--timing) backwards;
         }
 
         .covenant-row:last-child {
             border-bottom: none;
         }
 
-        .covenant-row:nth-child(1) { animation-delay: 0.1s; }
-        .covenant-row:nth-child(2) { animation-delay: 0.15s; }
-        .covenant-row:nth-child(3) { animation-delay: 0.2s; }
+        .covenant-row:nth-child(1) { animation-delay: 0.2s; }
+        .covenant-row:nth-child(2) { animation-delay: 0.25s; }
+        .covenant-row:nth-child(3) { animation-delay: 0.3s; }
 
         .covenant-label {
             font-size: 11px;
+            font-weight: 600;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 600;
         }
 
         .covenant-value {
@@ -1116,7 +1292,198 @@
             font-weight: 500;
         }
 
+        .chart-container {
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: 24px;
+            animation: slideInUp 0.4s var(--timing) 0.25s backwards;
+        }
+
+        .chart-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 240px;
+        }
+
+        .sofr-slider-container {
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: 24px;
+            animation: slideInUp 0.4s var(--timing) 0.3s backwards;
+        }
+
+        .slider-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .slider-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.08);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
+            transition: all 0.2s var(--timing);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.4);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
+            border: none;
+            transition: all 0.2s var(--timing);
+        }
+
+        .slider-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+            min-width: 40px;
+        }
+
+        .slider-output {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
         /* ===== COMPLIANCE & AUDIT ===== */
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), var(--green));
+        }
+
+        .timeline-item {
+            margin-bottom: 24px;
+            padding-left: 60px;
+            position: relative;
+            animation: slideInLeft 0.4s var(--timing) backwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.15s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.25s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.35s; }
+
+        .timeline-dot {
+            position: absolute;
+            left: 12px;
+            top: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--surface);
+            z-index: 1;
+            box-shadow: 0 0 0 1px var(--accent);
+            transition: all 0.3s var(--timing);
+        }
+
+        .timeline-dot.completed {
+            background: var(--green);
+            box-shadow: 0 0 0 1px var(--green);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.2);
+        }
+
+        .timeline-content {
+            padding: 16px;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: all 0.3s var(--timing);
+        }
+
+        .timeline-content:hover {
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.1);
+        }
+
+        .timeline-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .timeline-timestamp {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .timeline-details {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s var(--timing);
+        }
+
+        .timeline-content.expanded .timeline-details {
+            max-height: 200px;
+            margin-top: 8px;
+        }
+
         .audit-row {
             display: grid;
             grid-template-columns: 2fr 1fr 1.5fr 1fr;
@@ -1263,6 +1630,16 @@
             color: var(--accent);
         }
 
+        .live-clock {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 8px 12px;
+            background: rgba(0, 113, 227, 0.08);
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+        }
+
         .intelligence-panel {
             background: var(--surface);
             border-radius: 16px;
@@ -1380,6 +1757,42 @@
         @keyframes notificationSlideOut {
             from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(120%); opacity: 0; }
+        }
+
+        /* ===== NEW KEYFRAMES ===== */
+        @keyframes slideInLeft {
+            from { transform: translateX(-24px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(24px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(16px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes draw {
+            from { stroke-dashoffset: 100%; }
+            to { stroke-dashoffset: 0%; }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* ===== SCROLLBAR ===== */
@@ -1697,7 +2110,7 @@
                 covenants: [
                     { label: "DSCR", minimum: "1.25x", current: "1.48x", trend: "1.48x → 1.45x → 1.42x (last 3Q)" },
                     { label: "Debt Yield", minimum: "9.0%", current: "10.2%", trend: "Stable" },
-                    { label: "LTV", minimum: "< 75%", current: "72%", trend: "Improving" }
+                    { label: "Loan-to-Value", minimum: "80%", current: "72%", trend: "Improving" }
                 ],
                 portfolio: {
                     total: 12,
@@ -1707,94 +2120,82 @@
             },
             complianceAudit: {
                 auditTrail: [
-                    { action: "Document uploaded", user: "Flora Sah", time: "2026-03-21 14:45", status: "success" },
-                    { action: "Data extracted via AI", user: "System", time: "2026-03-21 14:47", status: "success" },
-                    { action: "Confidence scored", user: "System", time: "2026-03-21 14:48", status: "success" },
-                    { action: "Analyst review pending", user: "Sarah Kim", time: "2026-03-21 15:02", status: "warning" },
-                    { action: "Principal Amount approved", user: "Sarah Kim", time: "2026-03-21 15:15", status: "success" },
-                    { action: "DSCR field flagged for review", user: "Sarah Kim", time: "2026-03-21 15:18", status: "warning" },
-                    { action: "Monitoring system notified", user: "System", time: "2026-03-21 15:20", status: "success" },
-                    { action: "Audit log recorded", user: "System", time: "2026-03-21 15:21", status: "success" }
+                    { action: "Document Ingestion", user: "System", time: "March 23, 2026, 9:15 AM", status: "success" },
+                    { action: "Data Extraction Complete", user: "AI Engine", time: "March 23, 2026, 9:28 AM", status: "success" },
+                    { action: "Confidence Scoring", user: "AI Engine", time: "March 23, 2026, 9:32 AM", status: "success" },
+                    { action: "Analyst Review Started", user: "Sarah Kim", time: "March 23, 2026, 10:15 AM", status: "success" },
+                    { action: "Field Verification", user: "Sarah Kim", time: "March 23, 2026, 10:42 AM", status: "success" },
+                    { action: "Portfolio Update", user: "System", time: "March 23, 2026, 11:00 AM", status: "success" },
+                    { action: "Compliance Check", user: "System", time: "March 23, 2026, 11:05 AM", status: "success" },
+                    { action: "Archive & Log", user: "System", time: "March 23, 2026, 11:06 AM", status: "success" }
                 ],
-                governance: "All extractions traceable to source document. No data leaves the secure environment. Full chain of custody maintained."
+                governance: "All processed documents are stored with full audit trails. Access is role-based and logged. Retention policies comply with FFIEC requirements."
             },
             teamActivity: {
                 activity: [
-                    { time: "2:47 PM", user: "System", action: "AI extraction completed for Pacific Commerce agreement" },
-                    { time: "2:50 PM", user: "Sarah Kim", action: "Began analyst review of extracted fields" },
-                    { time: "3:02 PM", user: "Flora Sah", action: "Marked urgent: SOFR reset pending April 1st" },
-                    { time: "3:15 PM", user: "Sarah Kim", action: "Approved 5 fields, flagged 1 for manual verification" },
-                    { time: "3:18 PM", user: "James Chen", action: "Reviewed DSCR trend — looks healthy" },
-                    { time: "3:20 PM", user: "Matt Rivera (CISO)", action: "Compliance audit complete — all events logged" }
+                    { time: "11:06 AM", user: "System", action: "Loan file #PC-2026-001 processing complete" },
+                    { time: "10:42 AM", user: "Sarah Kim", action: "Approved all fields in Pacific Commerce loan package" },
+                    { time: "10:18 AM", user: "James Chen", action: "Reviewed DSCR covenant compliance report" },
+                    { time: "9:52 AM", user: "Flora Sah", action: "Uploaded Q1 loan batch (12 documents)" },
+                    { time: "9:28 AM", user: "AI Engine", action: "Extracted 82 data fields with 94.2% avg confidence" },
+                    { time: "9:15 AM", user: "System", action: "Initiated document processing workflow" }
                 ],
                 suggestions: [
-                    "What's the DSCR on Pacific Commerce?",
-                    "Show covenant breaches this quarter",
-                    "Compare Westfield refinance terms",
-                    "Flag loans approaching maturity",
-                    "SOFR rate impact analysis"
+                    "What's the DSCR trend?",
+                    "Show covenant breaches",
+                    "Westfield status?",
+                    "Upcoming maturities?",
+                    "SOFR impact analysis"
                 ]
             }
         };
 
         let currentStep = 0;
 
-        // Initialize particles on landing page
         function initParticles() {
             const grid = document.getElementById('particleGrid');
+            if (!grid) return;
             for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
-                const tx = (Math.random() - 0.5) * 200;
-                const ty = (Math.random() - 0.5) * 200;
-                const duration = 15 + Math.random() * 20;
-                particle.style.cssText = `
-                    left: ${x}%;
-                    top: ${y}%;
-                    --tx: ${tx}px;
-                    --ty: ${ty}px;
-                    animation-duration: ${duration}s;
-                    animation-delay: ${Math.random() * 5}s;
-                `;
+                const delay = Math.random() * 20;
+                particle.style.left = x + '%';
+                particle.style.top = y + '%';
+                particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+                particle.style.animationDelay = delay + 's';
                 grid.appendChild(particle);
             }
         }
 
-        // Counter animation for metrics
         function animateCounters() {
-            const elements = document.querySelectorAll('.metric-value');
-            elements.forEach(el => {
-                const target = parseInt(el.getAttribute('data-target'));
+            const counters = document.querySelectorAll('.metric-value');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 30);
                 let current = 0;
-                const increment = Math.ceil(target / 60);
-                const interval = setInterval(() => {
+
+                const timer = setInterval(() => {
                     current += increment;
                     if (current >= target) {
                         current = target;
-                        clearInterval(interval);
+                        clearInterval(timer);
                     }
-                    if (el.textContent.includes('min')) {
-                        el.textContent = current + 'min';
-                    } else if (el.textContent.includes('%')) {
-                        el.textContent = Math.min(current, 100) + '%';
-                    } else if (el.textContent.includes('B')) {
-                        el.textContent = '$' + (current / 1000).toFixed(1) + 'B+';
-                    } else if (el.textContent.includes('/')) {
-                        el.textContent = '24/7';
-                    }
+                    if (counter.textContent.includes('min')) counter.textContent = Math.floor(current) + 'min';
+                    else if (counter.textContent.includes('%')) counter.textContent = Math.floor(current) + '%';
+                    else if (counter.textContent.includes('/7')) counter.textContent = Math.floor(current) + '/7';
+                    else counter.textContent = '$' + Math.floor(current / 1000) + 'B+';
                 }, 30);
             });
         }
 
         function launchDemo() {
-            // Fade out landing, fade in dashboard
             const landing = document.getElementById('landingPage');
             const dashboard = document.getElementById('dashboardContainer');
-
             landing.style.opacity = '0';
-            landing.style.pointerEvents = 'none';
             setTimeout(() => {
                 landing.classList.add('hidden');
                 dashboard.classList.remove('hidden');
@@ -1839,21 +2240,76 @@
         }
 
         function renderOverview(container) {
-            const html = `
-                <div>
-                    <h2 class="card-title">Pipeline Status Overview</h2>
-                    <div class="overview-grid">
-                        ${processContent.overview.cards.map(card => `
-                            <div class="overview-card">
-                                <div class="overview-card-number">${card.number}</div>
-                                <div class="overview-card-label">${card.label}</div>
-                                <div class="overview-card-status ${card.statusClass}">${card.status}</div>
-                            </div>
-                        `).join('')}
+            let html = `<div>
+                <h2 class="card-title">Pipeline Status Overview</h2>
+                <div class="gauge-container">
+                    <svg class="confidence-gauge" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="8"/>
+                        <circle cx="100" cy="100" r="90" fill="none" stroke="url(#gaugeGradient)" stroke-width="8"
+                                stroke-dasharray="502.65" stroke-dashoffset="54.29"
+                                transform="rotate(-90 100 100)" style="animation: draw 2s ease-out forwards;"/>
+                        <defs>
+                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#0071E3;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#34C759;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="gauge-value">
+                        <div class="gauge-percent">93.1%</div>
+                        <div class="gauge-label">Avg Confidence</div>
                     </div>
                 </div>
-            `;
+                <div class="overview-grid">
+                    ${processContent.overview.cards.map((card, idx) => `
+                        <div class="overview-card">
+                            <div class="overview-card-number" data-value="${card.number}">0</div>
+                            <div class="overview-card-label">${card.label}</div>
+                            <div class="overview-card-status ${card.statusClass}">${card.status}</div>
+                            <div class="sparkline-container">
+                                <svg width="100%" height="100%" viewBox="0 0 100 40" style="opacity: 0.6;">
+                                    <polyline points="0,30 20,25 40,28 60,15 80,22 100,10" fill="none" stroke="#0071E3" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+                                </svg>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="recent-alerts">
+                    <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary);">Recent Alerts</div>
+                    ${[
+                        { time: "11:06 AM", msg: "Loan file processing complete for Pacific Commerce" },
+                        { time: "10:42 AM", msg: "All fields approved. Ready for analyst sign-off." },
+                        { time: "9:28 AM", msg: "Data extraction finished: 82 fields, 94.2% confidence" }
+                    ].map((alert, idx) => `
+                        <div class="alert-item" style="animation-delay: ${0.2 + idx * 0.05}s;">
+                            <div class="alert-time">${alert.time}</div>
+                            <div class="alert-message">${alert.msg}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
             container.innerHTML = html;
+            setTimeout(() => animateOverviewCounters(), 100);
+        }
+
+        function animateOverviewCounters() {
+            const counters = document.querySelectorAll('[data-value]');
+            counters.forEach((el, idx) => {
+                const target = parseInt(el.getAttribute('data-value'));
+                const increment = target / 30;
+                let current = 0;
+                setTimeout(() => {
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            el.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            el.textContent = Math.floor(current);
+                        }
+                    }, 20);
+                }, idx * 100);
+            });
         }
 
         function renderDocumentIntake(container) {
@@ -1861,7 +2317,35 @@
             const html = `
                 <div>
                     <h2 class="card-title">Email: New Document Batch</h2>
-                    <div class="email-container">
+
+                    <div class="processing-progress">
+                        <div class="progress-label">Processing Status</div>
+                        <div class="progress-bar-large">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                        <div class="progress-text">12/12 documents ingested</div>
+                    </div>
+
+                    <div class="doc-type-chart">
+                        <div class="doc-type-item">
+                            <div class="doc-type-count">3</div>
+                            <div class="doc-type-label">Originations</div>
+                        </div>
+                        <div class="doc-type-item">
+                            <div class="doc-type-count">2</div>
+                            <div class="doc-type-label">Adjustments</div>
+                        </div>
+                        <div class="doc-type-item">
+                            <div class="doc-type-count">2</div>
+                            <div class="doc-type-label">Refinances</div>
+                        </div>
+                        <div class="doc-type-item">
+                            <div class="doc-type-count">5</div>
+                            <div class="doc-type-label">Renewals</div>
+                        </div>
+                    </div>
+
+                    <div class="email-container" style="margin-top: 24px;">
                         <div class="email-header">
                             <div class="email-from">From: <strong>${email.from}</strong></div>
                             <div class="email-subject">${email.subject}</div>
@@ -1889,20 +2373,21 @@
         function renderDataExtraction(container) {
             let html = '<div><h2 class="card-title">Extracted Data Fields</h2>';
 
-            processContent.dataExtraction.sections.forEach(section => {
+            processContent.dataExtraction.sections.forEach((section, secIdx) => {
                 html += `
                     <div class="extraction-section">
                         <div class="extraction-section-title">📋 ${section.title}</div>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                            ${section.rows.map(row => `
-                                <div>
+                            ${section.rows.map((row, rowIdx) => `
+                                <div class="expandable-row" onclick="toggleRow(this, '${section.title}-${rowIdx}')">
                                     <div class="extraction-field">${row.field}</div>
                                     <div class="extraction-value">${row.value}</div>
                                     <div class="extraction-source">Source: ${row.source}</div>
                                     <div style="margin-top: 8px;">
                                         <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">Confidence: ${row.confidence}%</div>
                                         <div class="confidence-bar">
-                                            <div class="confidence-fill confidence-high" style="width: ${row.confidence}%"></div>
+                                            <div class="confidence-fill confidence-high" style="--width: ${row.confidence}%; width: 0;"
+                                                 onload="this.style.width = '${row.confidence}%'"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1914,19 +2399,58 @@
 
             html += '</div>';
             container.innerHTML = html;
+            animateConfidenceBars();
+        }
+
+        function animateConfidenceBars() {
+            const bars = document.querySelectorAll('.confidence-bar .confidence-fill');
+            bars.forEach((bar, idx) => {
+                const width = bar.style.width || bar.getAttribute('style').match(/\d+/)[0];
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, idx * 100);
+            });
+        }
+
+        function toggleRow(el, id) {
+            el.classList.toggle('expanded');
         }
 
         function renderConfidenceScoring(container) {
             const html = `
                 <div>
                     <h2 class="card-title">Confidence Scoring & Source Verification</h2>
+
+                    <div class="gauge-container">
+                        <svg class="confidence-gauge" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="8"/>
+                            <circle cx="100" cy="100" r="90" fill="none" stroke="url(#gaugeGradient2)" stroke-width="8"
+                                    stroke-dasharray="502.65" stroke-dashoffset="36" transform="rotate(-90 100 100)"
+                                    style="animation: draw 2.5s ease-out forwards;"/>
+                            <defs>
+                                <linearGradient id="gaugeGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#0071E3;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#34C759;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="gauge-value">
+                            <div class="gauge-percent">93.1%</div>
+                            <div class="gauge-label">Overall Confidence</div>
+                        </div>
+                    </div>
+
                     <div class="confidence-grid">
                         <div class="confidence-list">
                             <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary);">Field Confidence Analysis</div>
-                            ${processContent.confidenceScoring.fields.map(field => `
-                                <div class="confidence-item">
+                            ${processContent.confidenceScoring.fields.map((field, idx) => `
+                                <div class="confidence-item clickable" onclick="highlightField(this, '${field.name}')">
                                     <span class="confidence-label">${field.name}</span>
                                     <div class="confidence-badge">
+                                        <div class="confidence-bar-horizontal">
+                                            <div class="confidence-bar-fill" style="--width: ${field.confidence}%; width: 0;"
+                                                 style="animation-delay: ${0.1 + idx * 0.08}s;"></div>
+                                        </div>
                                         <span class="confidence-percent">${field.confidence}%</span>
                                         <div class="confidence-dot" style="background: ${field.confidence >= 95 ? 'var(--green)' : field.confidence >= 85 ? 'var(--amber)' : 'var(--red)'}"></div>
                                     </div>
@@ -1947,15 +2471,35 @@
                 </div>
             `;
             container.innerHTML = html;
+            setTimeout(() => animateConfidenceBars(), 100);
+        }
+
+        function highlightField(el, fieldName) {
+            document.querySelectorAll('.confidence-item').forEach(item => {
+                item.style.background = 'transparent';
+            });
+            el.style.background = 'rgba(0, 113, 227, 0.1)';
         }
 
         function renderAnalystReview(container) {
+            const approvedCount = processContent.analystReview.fields.filter(f => f.status === 'approved').length;
             const html = `
                 <div>
                     <h2 class="card-title">Analyst Review & Approval</h2>
+
+                    <div class="approval-progress">
+                        <div class="approval-label">Approval Progress: ${approvedCount} of ${processContent.analystReview.fields.length} fields</div>
+                        <div class="progress-segments">
+                            ${processContent.analystReview.fields.map((field, idx) => `
+                                <div class="progress-segment ${field.status === 'approved' ? 'approved' : ''}"
+                                     style="animation-delay: ${0.1 + idx * 0.08}s;"></div>
+                            `).join('')}
+                        </div>
+                    </div>
+
                     <div class="review-form">
                         ${processContent.analystReview.fields.map((field, idx) => `
-                            <div class="review-field">
+                            <div class="review-field" style="animation-delay: ${0.1 + idx * 0.05}s;">
                                 <div class="field-group">
                                     <div class="field-label">${field.name}</div>
                                     <div class="field-value">${field.value}</div>
@@ -1977,8 +2521,8 @@
 
                     <div class="comments-section">
                         <div class="card-title">Team Comments</div>
-                        ${processContent.analystReview.comments.map(comment => `
-                            <div class="comment">
+                        ${processContent.analystReview.comments.map((comment, idx) => `
+                            <div class="comment" style="animation-delay: ${0.15 + idx * 0.05}s;">
                                 <div class="comment-author">${comment.author}</div>
                                 <div class="comment-text">${comment.text}</div>
                             </div>
@@ -1993,6 +2537,19 @@
 
         function renderLoanMonitoring(container) {
             const loan = processContent.loanMonitoring.activeLoan;
+            const dscrData = [
+                {q: "Q1'24", v: 1.52},
+                {q: "Q2'24", v: 1.50},
+                {q: "Q3'24", v: 1.48},
+                {q: "Q4'24", v: 1.48},
+                {q: "Q1'25", v: 1.47},
+                {q: "Q2'25", v: 1.45},
+                {q: "Q3'25", v: 1.42},
+                {q: "Q4'25", v: 1.48}
+            ];
+
+            const chartSvg = generateDscrChart(dscrData);
+
             const html = `
                 <div>
                     <h2 class="card-title">Active Loan Monitoring</h2>
@@ -2016,8 +2573,8 @@
 
                         <div class="covenant-tracker">
                             <div style="font-size: 13px; font-weight: 600; margin-bottom: 16px; color: var(--text-primary);">Covenant Compliance</div>
-                            ${processContent.loanMonitoring.covenants.map(cov => `
-                                <div class="covenant-row">
+                            ${processContent.loanMonitoring.covenants.map((cov, idx) => `
+                                <div class="covenant-row" style="animation-delay: ${0.2 + idx * 0.05}s;">
                                     <div>
                                         <div class="covenant-label">${cov.label}</div>
                                         <div class="covenant-value">${cov.current}</div>
@@ -2032,7 +2589,22 @@
                         </div>
                     </div>
 
-                    <div class="card" style="margin-top: 16px;">
+                    <div class="chart-container">
+                        <div class="chart-title">DSCR Trend (8 Quarters)</div>
+                        ${chartSvg}
+                    </div>
+
+                    <div class="sofr-slider-container">
+                        <div class="slider-label">SOFR Rate Impact Calculator</div>
+                        <div class="slider-controls">
+                            <input type="range" min="4.0" max="8.0" value="6.77" step="0.1"
+                                   id="sofrSlider" oninput="updateSofrPayment(this.value)">
+                            <div class="slider-value"><span id="sofr-display">6.77</span>%</div>
+                        </div>
+                        <div class="slider-output">Current monthly payment: $<span id="payment-display">72,850</span> | Estimated change: $<span id="change-display">0</span></div>
+                    </div>
+
+                    <div class="card">
                         <div class="card-title">Portfolio Health</div>
                         <div style="font-size: 13px; line-height: 2;">
                             <div>• <strong>${processContent.loanMonitoring.portfolio.total} loans</strong> monitored in real-time</div>
@@ -2043,6 +2615,65 @@
                 </div>
             `;
             container.innerHTML = html;
+        }
+
+        function generateDscrChart(data) {
+            const width = 600, height = 240, padding = 40;
+            const chartWidth = width - 2 * padding;
+            const chartHeight = height - 2 * padding;
+
+            const minV = 1.2, maxV = 1.6;
+            const yScale = chartHeight / (maxV - minV);
+            const xScale = chartWidth / (data.length - 1);
+
+            let pathD = '';
+            data.forEach((d, i) => {
+                const x = padding + i * xScale;
+                const y = padding + chartHeight - (d.v - minV) * yScale;
+                pathD += (i === 0 ? 'M' : 'L') + x + ',' + y;
+            });
+
+            const minLine = padding + chartHeight - (1.25 - minV) * yScale;
+
+            let svg = `<svg class="chart-svg" viewBox="0 0 ${width} ${height}" style="overflow: visible;">
+                <defs>
+                    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#0071E3;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#34C759;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <line x1="0" y1="${minLine}" x2="${width}" y2="${minLine}" stroke="#FF3B30" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.6"/>
+                <text x="${width - 5}" y="${minLine - 5}" font-size="10" fill="#FF3B30" text-anchor="end">1.25x min</text>`;
+
+            svg += `<polyline points="`;
+            data.forEach((d, i) => {
+                const x = padding + i * xScale;
+                const y = padding + chartHeight - (d.v - minV) * yScale;
+                svg = svg.replace('points="', 'points="' + x + ',' + y + ' ');
+            });
+            svg += `" fill="none" stroke="url(#chartGradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation: draw 1.5s ease-out forwards;"/>`;
+
+            data.forEach((d, i) => {
+                const x = padding + i * xScale;
+                const y = padding + chartHeight - (d.v - minV) * yScale;
+                svg += `<circle cx="${x}" cy="${y}" r="3.5" fill="white" stroke="url(#chartGradient)" stroke-width="2" style="animation: pop 0.3s ease-out forwards; animation-delay: ${0.8 + i * 0.08}s;"/>`;
+                svg += `<text x="${x}" y="${y + 20}" font-size="11" fill="var(--text-secondary)" text-anchor="middle" style="animation: fadeIn 0.3s ease-out forwards; animation-delay: ${0.9 + i * 0.08}s;">${d.q}</text>`;
+                svg += `<text x="${x}" y="${y - 12}" font-size="10" fill="var(--accent)" font-weight="600" text-anchor="middle" style="animation: fadeIn 0.3s ease-out forwards; animation-delay: ${0.95 + i * 0.08}s;">${d.v.toFixed(2)}x</text>`;
+            });
+
+            svg += `</svg>`;
+            return svg;
+        }
+
+        function updateSofrPayment(val) {
+            const sofr = parseFloat(val);
+            document.getElementById('sofr-display').textContent = sofr.toFixed(2);
+            const basePayment = 72850;
+            const baseRate = 6.77;
+            const change = (sofr - baseRate) * 15200000 / 12 / 100;
+            const newPayment = basePayment + change;
+            document.getElementById('payment-display').textContent = Math.round(newPayment).toLocaleString();
+            document.getElementById('change-display').textContent = Math.round(Math.abs(change)).toLocaleString();
         }
 
         function renderComplianceAudit(container) {
@@ -2097,9 +2728,12 @@
                     <h2 class="card-title">Team Activity & AI Intelligence</h2>
                     <div class="activity-grid">
                         <div class="activity-feed">
-                            <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary);">Recent Activity</div>
-                            ${processContent.teamActivity.activity.map(item => `
-                                <div class="activity-item">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <div style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Recent Activity</div>
+                                <div class="live-clock" id="liveClock">12:30:45 PM</div>
+                            </div>
+                            ${processContent.teamActivity.activity.map((item, idx) => `
+                                <div class="activity-item" style="animation-delay: ${0.05 + idx * 0.05}s;">
                                     <div class="activity-time">${item.time}</div>
                                     <div class="activity-text"><span class="activity-user">${item.user}:</span> ${item.action}</div>
                                 </div>
@@ -2114,8 +2748,8 @@
                                 <button onclick="askAI()">Ask</button>
                             </div>
                             <div style="display: flex; flex-wrap: wrap;">
-                                ${processContent.teamActivity.suggestions.map(suggestion => `
-                                    <div class="suggestion-chip" onclick="askAI('${suggestion}')">${suggestion}</div>
+                                ${processContent.teamActivity.suggestions.map((suggestion, idx) => `
+                                    <div class="suggestion-chip" onclick="askAI('${suggestion}')" style="animation-delay: ${0.05 + idx * 0.05}s;">${suggestion}</div>
                                 `).join('')}
                             </div>
                             <div id="aiResponse"></div>
@@ -2124,6 +2758,18 @@
                 </div>
             `;
             container.innerHTML = html;
+            startLiveClock();
+        }
+
+        function startLiveClock() {
+            const updateClock = () => {
+                const now = new Date();
+                const time = now.toLocaleTimeString('en-US');
+                const el = document.getElementById('liveClock');
+                if (el) el.textContent = time;
+            };
+            updateClock();
+            setInterval(updateClock, 1000);
         }
 
         function approveField(idx) {
@@ -2156,24 +2802,26 @@
             if (!input) return;
 
             const response = document.getElementById('aiResponse');
-            let answer = '';
+            response.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
 
-            if (input.toLowerCase().includes('dscr')) {
-                answer = 'Pacific Commerce DSCR is currently 1.48x, which is above the 1.25x minimum requirement. Trend over last 3 quarters: 1.48x → 1.45x → 1.42x — slight downward trend but still healthy. Monitor closely.';
-            } else if (input.toLowerCase().includes('breach')) {
-                answer = 'No covenant breaches this quarter. All 12 monitored loans are compliant. 1 loan on watch list for trend monitoring.';
-            } else if (input.toLowerCase().includes('westfield')) {
-                answer = 'Westfield Holdings refinance: Principal $8,400,000, SOFR + 2.25%, Maturity March 2034. All terms extracted and verified. Ready for approval.';
-            } else if (input.toLowerCase().includes('maturity')) {
-                answer = 'No loans approaching maturity in next 6 months. Earliest maturity: Pacific Commerce (Sept 2031), 5+ years out.';
-            } else if (input.toLowerCase().includes('sofr')) {
-                answer = 'SOFR impact: Pacific Commerce will see rate reset April 1st. Estimated all-in rate: 7.12%. No other April-due SOFR resets in portfolio.';
-            } else {
-                answer = 'I can help you analyze loan terms, covenant compliance, SOFR impacts, and portfolio trends. What would you like to know?';
-            }
-
-            response.innerHTML = `<div class="response-text">${answer}</div>`;
-            document.getElementById('aiInput').value = '';
+            setTimeout(() => {
+                let answer = '';
+                if (input.toLowerCase().includes('dscr')) {
+                    answer = 'Pacific Commerce DSCR is currently 1.48x, which is above the 1.25x minimum requirement. Trend over last 3 quarters: 1.48x → 1.45x → 1.42x — slight downward trend but still healthy. Monitor closely.';
+                } else if (input.toLowerCase().includes('breach')) {
+                    answer = 'No covenant breaches this quarter. All 12 monitored loans are compliant. 1 loan on watch list for trend monitoring.';
+                } else if (input.toLowerCase().includes('westfield')) {
+                    answer = 'Westfield Holdings refinance: Principal $8,400,000, SOFR + 2.25%, Maturity March 2034. All terms extracted and verified. Ready for approval.';
+                } else if (input.toLowerCase().includes('maturity')) {
+                    answer = 'No loans approaching maturity in next 6 months. Earliest maturity: Pacific Commerce (Sept 2031), 5+ years out.';
+                } else if (input.toLowerCase().includes('sofr')) {
+                    answer = 'SOFR impact: Pacific Commerce will see rate reset April 1st. Estimated all-in rate: 7.12%. No other April-due SOFR resets in portfolio.';
+                } else {
+                    answer = 'I can help you analyze loan terms, covenant compliance, SOFR impacts, and portfolio trends. What would you like to know?';
+                }
+                response.innerHTML = `<div class="chat-bubble">${answer}</div>`;
+                document.getElementById('aiInput').value = '';
+            }, 1500);
         }
 
         function showNotification(msg) {
