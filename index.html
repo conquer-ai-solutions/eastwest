@@ -52,6 +52,7 @@
             background: linear-gradient(135deg, #F5F5F7 0%, #FFFFFF 100%);
             overflow: hidden;
             position: relative;
+            transition: opacity 0.4s var(--timing);
         }
 
         /* Animated particle grid background */
@@ -2426,19 +2427,19 @@
 
                 <div class="metrics-bar">
                     <div class="metric">
-                        <div class="metric-value" data-target="240">0min</div>
+                        <div class="metric-value" id="mv0">2hrs → 4min</div>
                         <div class="metric-label">Processing Time</div>
                     </div>
                     <div class="metric">
-                        <div class="metric-value" data-target="97">0%</div>
+                        <div class="metric-value" id="mv1">97%</div>
                         <div class="metric-label">Extraction Accuracy</div>
                     </div>
                     <div class="metric">
-                        <div class="metric-value" data-target="70000">$0B+</div>
+                        <div class="metric-value" id="mv2">$70B+</div>
                         <div class="metric-label">Assets Under Management</div>
                     </div>
                     <div class="metric">
-                        <div class="metric-value" data-target="24">0/7</div>
+                        <div class="metric-value" id="mv3">24/7</div>
                         <div class="metric-label">Always On</div>
                     </div>
                 </div>
@@ -2709,28 +2710,6 @@
                 particle.style.animationDelay = delay + 's';
                 grid.appendChild(particle);
             }
-        }
-
-        function animateCounters() {
-            const counters = document.querySelectorAll('.metric-value');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000;
-                const increment = target / (duration / 30);
-                let current = 0;
-
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    if (counter.textContent.includes('min')) counter.textContent = Math.floor(current) + 'min';
-                    else if (counter.textContent.includes('%')) counter.textContent = Math.floor(current) + '%';
-                    else if (counter.textContent.includes('/7')) counter.textContent = Math.floor(current) + '/7';
-                    else counter.textContent = '$' + Math.floor(current / 1000) + 'B+';
-                }, 30);
-            });
         }
 
         function launchDemo() {
@@ -3606,7 +3585,6 @@
         // Initialize on page load
         window.addEventListener('load', () => {
             initParticles();
-            animateCounters();
             const saved = sessionStorage.getItem('currentStep');
             if (saved && !document.getElementById('dashboardContainer').classList.contains('hidden')) {
                 currentStep = parseInt(saved);
